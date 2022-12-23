@@ -6,7 +6,7 @@ import { Container, Text } from './styles';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 
-import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
+
 
 
 export function SignUp() {

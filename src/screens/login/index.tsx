@@ -19,9 +19,11 @@ export function Login() {
   return (
     <Container>
         <Text>Login</Text>
+        
         <Input placeholder='Email' />
-        <Input placeholder='Password'/>
-        <Button  title='Enviar'/>
+        <Input placeholder='Password' secureTextEntry/>
+        <Button  
+        title='Enviar' disabled={true}/>
         <Button  title='Cadastrar' onPress={handleNewAccount}/>
 
     </Container>
