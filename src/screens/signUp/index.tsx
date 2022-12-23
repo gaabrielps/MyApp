@@ -9,21 +9,26 @@ import { Input } from '../../components/input';
 
 
 
-
+type formDataProps = {
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
 export function SignUp() {
   const navigation = useNavigation() 
 
-  const {control, handleSubmit} = useForm()
+  const {control, handleSubmit} = useForm<formDataProps>()
 
   function handleGoBack() {
     navigation.goBack()
   }
 
-  function handleSingUp(data: any) {
+  function handleSingUp(data: formDataProps) {
     console.log(data);
 
   }
-
 
   return (
     <Container>
@@ -80,7 +85,7 @@ export function SignUp() {
 
         <Controller 
         control={control}
-        name='confirmPassword'
+        name='passwordConfirm'
         render={({field: {onChange, value}}) =>(
           <Input 
             placeholder='Confirme a senha' 
