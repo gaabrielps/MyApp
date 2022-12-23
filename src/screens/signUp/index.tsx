@@ -1,12 +1,20 @@
 import React from 'react';
-
+import {useNavigation} from '@react-navigation/native'
 
 import { Container, Text } from './styles';
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 
+import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
+
+
 export function SignUp() {
+  const navigation = useNavigation() 
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
   return (
     <Container>
 
@@ -24,7 +32,7 @@ export function SignUp() {
    
       <Button title='Criar conta em aca.so'/>
 
-      <Button title='voltar ao login'/>
+      <Button title='voltar ao login' onPress={handleGoBack}/>
 
 
   
