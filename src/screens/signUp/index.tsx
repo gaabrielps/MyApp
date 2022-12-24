@@ -56,6 +56,18 @@ export function SignUp() {
   }
 
   async function handleSingUp({email, first_name, last_name, password}: formDataProps) {
+    try {
+      const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
+      console.log(response.data)
+      console.log('passou')
+
+      navigation.navigate('signup')
+
+    } catch(error) {
+      if(axios.isAxiosError(error)) {
+        
+      }
+    }
    
 
   }
@@ -169,20 +181,3 @@ const styles = StyleSheet.create({
 });
 
 
-
-/*
-
-
-    try {
-      const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
-      console.log(response.data)
-      console.log('passou')
-
-      navigation.navigate('signup')
-
-    } catch(error) {
-      if(axios.isAxiosError(error)) {
-        
-      }
-    }
-*/
