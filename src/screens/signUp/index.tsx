@@ -1,5 +1,4 @@
 import React from 'react';
-import {Alert} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
 
@@ -10,6 +9,7 @@ import { Input } from '../../components/input';
 
 import {api} from '../../services/api'
 import axios from 'axios'
+import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
 
 
 
@@ -22,8 +22,8 @@ type formDataProps = {
 }
 
 export function SignUp() {
-
-  const navigation = useNavigation() 
+  const navigation = useNavigation<AuthNavigatorRoutesProps>()
+  
 
   const {control, handleSubmit, formState:{errors}} = useForm<formDataProps>()
 
@@ -37,6 +37,8 @@ export function SignUp() {
       const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
       console.log(response.data)
       console.log('passou')
+
+      navigation.navigate('signup')
 
     } catch(error) {
       if(axios.isAxiosError(error)) {
