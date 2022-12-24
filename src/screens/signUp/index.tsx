@@ -1,8 +1,11 @@
 import React from 'react';
+import {Text, StyleSheet } from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
+import {yupResolver} from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
-import { Container, Text } from './styles';
+import { Container, Title } from './styles';
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
@@ -21,11 +24,32 @@ type formDataProps = {
   passwordConfirm: string;
 }
 
+
+const validationDataInputs = yup.object({
+  first_name: yup.string().required('informe o nome'),
+
+  last_name: yup.string().required('informe o ultimo nome'),
+
+  email: yup.string().required('informe o email').email('informe um email valido'),
+
+  password: yup.string().required()
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-6])/,
+    "minimo de 6 caracteres sendo minusculas e maisuculas"
+  ),
+
+  passwordConfirm: yup.string().required('confirme a senha').oneOf([yup.ref('password')], 
+  'a confirmação de senha nao confere')
+})
+
+
 export function SignUp() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
   
 
-  const {control, handleSubmit, formState:{errors}} = useForm<formDataProps>()
+  const {control, handleSubmit, formState:{errors}} = useForm<formDataProps>({
+    resolver: yupResolver(validationDataInputs)
+  })
 
   function handleGoBack() {
     navigation.goBack()
@@ -33,24 +57,14 @@ export function SignUp() {
 
   async function handleSingUp({email, first_name, last_name, password}: formDataProps) {
    
-    try {
-      const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
-      console.log(response.data)
-      console.log('passou')
 
-      navigation.navigate('signup')
-
-    } catch(error) {
-      if(axios.isAxiosError(error)) {
-        console.log(error.response?.data)
-      }
-    }
   }
 
   return (
     <Container>
+            
 
-        <Text>Cadastro</Text>
+        <Title>Cadastro</Title>
 
         <Controller 
         control={control}
@@ -66,13 +80,12 @@ export function SignUp() {
           />
         )}
         />
+        <Text style={styles.baseText}>{errors.email?.message}</Text>
+
   
         <Controller 
         control={control}
-        name='first_name'
-        rules={{
-          required: 'informe o nome',
-        }}        
+        name='first_name'       
         render={({field: {onChange, value}}) =>(
           <Input 
             placeholder='Nome' 
@@ -81,13 +94,12 @@ export function SignUp() {
           />
         )}
         />
+        <Text style={styles.baseText}>{errors.first_name?.message}</Text>
+        
 
         <Controller 
         control={control}
         name='last_name'
-        rules={{
-          required: 'informe o ultimo nome'
-        }}
         render={({field: {onChange, value}}) =>(
           <Input 
             placeholder='Ultimo nome' 
@@ -97,38 +109,41 @@ export function SignUp() {
           />
         )}
         />
+        <Text style={styles.baseText}>{errors.last_name?.message}</Text>
+
 
         <Controller 
         control={control}
         name='password'
-        rules={{
-          required: 'informe a senha'
-        }}
         render={({field: {onChange, value}}) =>(
           <Input 
-            placeholder='Senha' 
+            placeholder='Senha'
+            secureTextEntry 
             onChangeText={onChange}
             value={value}  
           />
         )}
         />
+        <Text style={styles.baseText}>{errors.password?.message}</Text>
+
 
         <Controller 
         control={control}
         name='passwordConfirm'
-        rules={{
-          required: 'informe a confirmação de senha'
-        }}
         render={({field: {onChange, value}}) =>(
           <Input 
             placeholder='Confirme a senha' 
             onChangeText={onChange}
+            secureTextEntry
             value={value}  
             onSubmitEditing={handleSubmit(handleSingUp)}
             returnKeyType='send'
           />
         )}
         />
+        <Text style={styles.baseText}>{errors.passwordConfirm?.message}</Text>
+
+
       
    
       <Button 
@@ -145,3 +160,29 @@ export function SignUp() {
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  baseText: {
+    fontSize: 8.5,
+    fontWeight: "bold"
+  }
+});
+
+
+
+/*
+
+
+    try {
+      const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
+      console.log(response.data)
+      console.log('passou')
+
+      navigation.navigate('signup')
+
+    } catch(error) {
+      if(axios.isAxiosError(error)) {
+        
+      }
+    }
+*/

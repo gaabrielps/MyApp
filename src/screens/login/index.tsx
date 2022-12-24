@@ -5,7 +5,7 @@ import { Input } from '../../components/input';
 import { Container } from './styles';
 
 import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
-import { Text } from '../signUp/styles';
+import { Title } from '../signUp/styles';
 
 
 
@@ -18,7 +18,7 @@ export function Login() {
 
   return (
     <Container>
-        <Text>Login</Text>
+        <Title>Login</Title>
         
         <Input placeholder='Email' />
         <Input placeholder='Password' secureTextEntry/>
