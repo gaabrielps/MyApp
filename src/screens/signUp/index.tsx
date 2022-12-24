@@ -1,4 +1,5 @@
 import React from 'react';
+import {Alert} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
 
@@ -6,18 +7,22 @@ import { Container, Text } from './styles';
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
-import { TextProps } from 'react-native';
+
+import {api} from '../../services/api'
+import axios from 'axios'
 
 
 
 type formDataProps = {
-  name: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
   passwordConfirm: string;
 }
+
 export function SignUp() {
+
   const navigation = useNavigation() 
 
   const {control, handleSubmit, formState:{errors}} = useForm<formDataProps>()
@@ -26,9 +31,18 @@ export function SignUp() {
     navigation.goBack()
   }
 
-  function handleSingUp(data: formDataProps) {
-    console.log(data);
+  async function handleSingUp({email, first_name, last_name, password}: formDataProps) {
+   
+    try {
+      const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
+      console.log(response.data)
+      console.log('passou')
 
+    } catch(error) {
+      if(axios.isAxiosError(error)) {
+        console.log(error.response?.data)
+      }
+    }
   }
 
   return (
@@ -53,13 +67,9 @@ export function SignUp() {
   
         <Controller 
         control={control}
-        name='name'
+        name='first_name'
         rules={{
           required: 'informe o nome',
-          pattern: {
-            value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: 'E-mail inválido'
-          }
         }}        
         render={({field: {onChange, value}}) =>(
           <Input 
@@ -72,7 +82,7 @@ export function SignUp() {
 
         <Controller 
         control={control}
-        name='lastName'
+        name='last_name'
         rules={{
           required: 'informe o ultimo nome'
         }}
@@ -80,7 +90,8 @@ export function SignUp() {
           <Input 
             placeholder='Ultimo nome' 
             onChangeText={onChange}
-            value={value}  
+            value={value} 
+             
           />
         )}
         />
