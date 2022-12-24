@@ -25,7 +25,7 @@ margin:10px;
 `;
 
 export const Title = styled(Text)`
-font-size: ${({theme}) => theme.FONT_SIZE.MD};
+font-size: 16px;
 color: black;
 font-family: ${({theme}) => theme.FONT_FAMILY.REGULAR};
 

@@ -13,7 +13,7 @@ background-color: ${({theme}) => theme.COLORS.background};
 
 export const Text = styled.Text`
 
-font-size: ${({theme}) => theme.FONT_SIZE.XL};
+font-size: 32px
 
 
 `;
