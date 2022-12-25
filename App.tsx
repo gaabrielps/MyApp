@@ -17,9 +17,12 @@ export default function App() {
       
       />
       <AuthContext.Provider value={{
-        id:1,
-        name:'gabriel',
-        email:'araujolopesgabriel@gmail.com'
+        user: { //relacioando os dados com a tipagem DTO
+          id:'1',
+          name:'gabriel',
+          email:'araujolopesgabriel@gmail.com'
+        }
+
       }}>
         <Routes />
       </AuthContext.Provider>
