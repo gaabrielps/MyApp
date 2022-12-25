@@ -13,7 +13,6 @@ export const AuthContext = createContext<AuthContextDataProps>({}as AuthContextD
 export function AuthContextProvider({children}:AuthContextProviderProps) {
   //relacioando os dados com a tipagem DTO
   const[user, setUser] = useState({
-    id:'1',
     name:'gabriel',
     email:'araujolopesgabriel@gmail.com'
   })
