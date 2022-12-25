@@ -9,7 +9,7 @@ import { AppRoutes } from './app.routes';
 export function Routes() {
   const {user} = useAuth()
 
-  console.log('user ==>>', user)
+  console.log('user ==>>',user )
   
   
   return (

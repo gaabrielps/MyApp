@@ -13,6 +13,8 @@ import { Input } from '../../components/input';
 import {api} from '../../services/api'
 import axios from 'axios'
 import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
+import { useAuth } from '../../hooks/useAuth';
+
 
 
 
@@ -44,6 +46,9 @@ const validationDataInputs = yup.object({
 
 
 export function SignUp() {
+  const {getDatas} = useAuth()
+
+
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
   
 
@@ -62,6 +67,9 @@ export function SignUp() {
       console.log('passou')
 
       navigation.navigate('confirmsign')
+      getDatas(email, first_name)
+
+      
       
 
     } catch(error) {

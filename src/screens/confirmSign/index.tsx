@@ -11,6 +11,7 @@ import {useForm, Controller} from 'react-hook-form'
 import {api} from '../../services/api'
 import axios from 'axios'
 import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
+import { useAuth } from '../../hooks/useAuth';
 
 type dataConfirmEmailProps = {
   email: string;
@@ -20,13 +21,16 @@ type dataConfirmEmailProps = {
 export function ConfirmSign() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
 
+  const {user} = useAuth()
+
+
 
 
   const {control, handleSubmit, formState:{errors}} = useForm<dataConfirmEmailProps>()
 
 
   async function handleConfirmEmail({confirmation_code, email}:dataConfirmEmailProps) {
-    email='gabriel@facilit.com.br'
+    email= user.email
     try {
       const response = await api.post('/auth/confirm-sign-up', {email,confirmation_code})
       console.log(response.data)
