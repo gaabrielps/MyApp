@@ -61,7 +61,8 @@ export function SignUp() {
       console.log(response.data)
       console.log('passou')
 
-      navigation.navigate('signup')
+      navigation.navigate('confirmsign')
+      
 
     } catch(error) {
       if(axios.isAxiosError(error)) {
