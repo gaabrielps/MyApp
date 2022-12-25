@@ -5,7 +5,7 @@ import {ThemeProvider} from 'styled-components'
 import theme from "./src/theme"
 
 import { Routes } from "./src/routes"
-import { AuthContext } from "./src/contexts/AuthContext"
+import { AuthContextProvider } from "./src/contexts/AuthContext"
 
 export default function App() {
   return (
@@ -16,16 +16,11 @@ export default function App() {
       translucent
       
       />
-      <AuthContext.Provider value={{
-        user: { //relacioando os dados com a tipagem DTO
-          id:'1',
-          name:'gabriel',
-          email:'araujolopesgabriel@gmail.com'
-        }
+    <AuthContextProvider>
+      <Routes />
+    </AuthContextProvider>
 
-      }}>
-        <Routes />
-      </AuthContext.Provider>
+
     </ThemeProvider>
 
   )
