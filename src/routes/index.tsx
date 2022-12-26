@@ -9,12 +9,12 @@ import { AppRoutes } from './app.routes';
 export function Routes() {
   const {user} = useAuth()
 
-  console.log('user ==>>',user )
+  //console.log('user ==>>',user.id)
   
   
   return (
     <NavigationContainer>
-        <AuthRoutes />
+      {user.id ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
 
   );
