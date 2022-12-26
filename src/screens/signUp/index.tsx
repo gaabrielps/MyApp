@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Text, StyleSheet } from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
@@ -46,10 +46,12 @@ const validationDataInputs = yup.object({
 
 
 export function SignUp() {
-  //const {getDatas} = useAuth()
-
+  const {getDatas} = useAuth()
+  const[email, setEmail] = useState('')
+  console.log('teste', email)
 
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
+
   
 
   const {control, handleSubmit, formState:{errors}} = useForm<formDataProps>({
@@ -60,11 +62,15 @@ export function SignUp() {
     navigation.goBack()
   }
 
+
   async function handleSingUp({email, first_name, last_name, password}: formDataProps) {
+
     try {
       const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
       console.log(response.data)
       console.log('passou')
+      setEmail(email) 
+      
 
       navigation.navigate('confirmsign')
       
@@ -97,7 +103,8 @@ export function SignUp() {
           <Input 
             placeholder='Email' 
             onChangeText={onChange}
-            value={value}  
+            value={value} 
+             
           />
         )}
         />
@@ -170,6 +177,7 @@ export function SignUp() {
       <Button 
       title='Criar conta em aca.so'
       onPress={handleSubmit(handleSingUp)}
+      
       />
 
       <Button title='voltar ao login' onPress={handleGoBack}/>
