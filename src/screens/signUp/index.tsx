@@ -46,7 +46,7 @@ const validationDataInputs = yup.object({
 
 
 export function SignUp() {
-  const {getDatas} = useAuth()
+  //const {getDatas} = useAuth()
 
 
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
@@ -67,7 +67,7 @@ export function SignUp() {
       console.log('passou')
 
       navigation.navigate('confirmsign')
-      getDatas(email, first_name)
+      
 
       
       
