@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import {useNavigation} from '@react-navigation/native'
 
 import { Button } from '../../components/button';
@@ -12,6 +12,7 @@ import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
 
 import { api } from '../../services/api';
 import axios from 'axios';
+import { useAuth } from '../../hooks/useAuth';
 
 
 
@@ -23,21 +24,14 @@ type formData = {
 
 export function Login() {
 
+  const {getDatas} = useAuth()
+
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
 
   const {control, handleSubmit, formState:{errors}} = useForm<formData>()
 
   async function handleLogin({email, password}: formData) {
-    try {
-      const response = await api.post('auth/login', {email, password})
-      console.log(response.data)
-      console.log('passou')
-      navigation.navigate('home')
-    } catch(error) {
-      if(axios.isAxiosError(error)) {
-        console.log(error)
-      }
-    }
+    getDatas(email, password)
   }
 
   function handleNewAccount() {
