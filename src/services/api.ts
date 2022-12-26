@@ -4,6 +4,11 @@ import { AppError } from "../utils/AppError";
 
 type SignOut = () => void
 
+type PromiseType = {
+    resolve: (value?: unknown) => void
+    reject: (reason?: unknown) => void
+}
+
 type APIInstanceProps = AxiosInstance & {
     registerInterceptTokenManager: (SignOut: SignOut) => () => void
 }
@@ -11,6 +16,9 @@ type APIInstanceProps = AxiosInstance & {
  const api = axios.create({
     baseURL: 'https://api.staging.aca.so'
 }) as APIInstanceProps
+
+let isRefreshing = false
+let failedQueue: Array<PromiseType> = [];
 
 api.registerInterceptTokenManager = SignOut => {
     const InterceptTokenManager = api.interceptors.response.use(response => response, async requestError =>{
@@ -23,6 +31,23 @@ api.registerInterceptTokenManager = SignOut => {
                     SignOut()
                     return Promise.reject(requestError)
                 }
+
+                const originalResquest = requestError.config
+                if(isRefreshing) {
+                    return new Promise((resolve, reject) => {
+                        failedQueue.push({resolve, reject})
+                    })
+                        .then((token) => {
+                            originalResquest.headers.Authorization = `Bearer ${token}`
+                            return axios(originalResquest)
+
+                        })
+                        .catch((error) => {
+                            throw error;
+                        })
+                }
+
+                isRefreshing = true
 
             }
 
