@@ -3,12 +3,14 @@ import {createNativeStackNavigator, NativeStackNavigationProp} from '@react-navi
 import { SignUp } from '../screens/signUp'
 import { Login } from '../screens/login'
 import { ConfirmSign } from '../screens/confirmSign'
+import { Home } from '../screens/home'
 
 
 type AuthRoutes = {
     signup: undefined;
     login: undefined;
     confirmsign: undefined;
+    home: undefined
 }
 
 export type AuthNavigatorRoutesProps = NativeStackNavigationProp<AuthRoutes>
@@ -32,6 +34,7 @@ export function AuthRoutes() {
             name="confirmsign"
             component={ConfirmSign}
             />
+            <Screen name='home' component={Home}/>
             
 
 

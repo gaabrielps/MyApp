@@ -32,6 +32,7 @@ export function Login() {
       const response = await api.post('auth/login', {email, password})
       console.log(response.data)
       console.log('passou')
+      navigation.navigate('home')
     } catch(error) {
       if(axios.isAxiosError(error)) {
         console.log(error)
