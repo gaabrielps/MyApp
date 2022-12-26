@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { storageAuthTokenGet } from "../storage/storageAuthToken";
+import { storageAuthTokenGet, storageAuthTokenSave } from "../storage/storageAuthToken";
 import { AppError } from "../utils/AppError";
 
 type SignOut = () => void
@@ -13,12 +13,30 @@ type APIInstanceProps = AxiosInstance & {
     registerInterceptTokenManager: (SignOut: SignOut) => () => void
 }
 
+type ProssesQueueParams ={
+    error: Error | null
+    token: Error | null
+}
+
  const api = axios.create({
     baseURL: 'https://api.staging.aca.so'
 }) as APIInstanceProps
 
 let isRefreshing = false
 let failedQueue: Array<PromiseType> = [];
+
+const processQueue = ({error, token = null}: ProssesQueueParams): void => {
+    failedQueue.forEach(request => {
+        if (error) {
+            request.reject(error)
+        } else {
+            request.resolve(token)
+        }
+
+    })
+    failedQueue = [];
+
+}
 
 api.registerInterceptTokenManager = SignOut => {
     const InterceptTokenManager = api.interceptors.response.use(response => response, async requestError =>{
@@ -38,7 +56,7 @@ api.registerInterceptTokenManager = SignOut => {
                         failedQueue.push({resolve, reject})
                     })
                         .then((token) => {
-                            originalResquest.headers.Authorization = `Bearer ${token}`
+                            originalResquest.headers['Authorization'] = `Bearer ${token}`
                             return axios(originalResquest)
 
                         })
@@ -49,6 +67,29 @@ api.registerInterceptTokenManager = SignOut => {
 
                 isRefreshing = true
 
+                //eviando o novo token
+                return new Promise(async(resolve, reject) => {
+
+                    try{
+                        const {data} = await api.post('/auth/refresh-token',{token:oldToken})
+                        console.log('atualizado', data)
+    
+                        await storageAuthTokenSave(data.token)
+                        api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+                        originalResquest.headers['Authorization'] = `Bearer ${data.token}`
+
+                        processQueue({error: null, token: data.token})
+                        console.log('atualizado')
+                        resolve(originalResquest)
+                    } catch(error: any){
+                        processQueue({error, token: null})
+                        SignOut()
+                        reject(error)
+
+                    } finally {
+                        isRefreshing = false
+                    }
+                })
             }
 
             SignOut()

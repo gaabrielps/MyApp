@@ -25,7 +25,7 @@ export function AuthContextProvider({children}:AuthContextProviderProps) {
     try{
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
-      setUser(user)
+      setUser(userData)
 
     } catch(error){
       throw error
