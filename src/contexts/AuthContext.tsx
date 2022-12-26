@@ -1,11 +1,12 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { UserDTO } from "../dtos/UserDTO";
 import { api } from "../services/api";
-import { storageUserSave, storageUserGet } from "../storage/storageUser";
+import { storageUserSave, storageUserGet, storageUserRemove } from "../storage/storageUser";
 
 type AuthContextDataProps = {
     user: UserDTO
     getDatas: (email: string, password: string) => Promise<void>
+    signOut: () => Promise<void>
 }
 
 type AuthContextProviderProps = {
@@ -43,12 +44,23 @@ export function AuthContextProvider({children}:AuthContextProviderProps) {
   
   }
 
+  async function signOut(){
+    try{
+      setUser({} as UserDTO)
+      storageUserRemove()
+
+    }catch(error) {
+      throw error
+
+    }
+  }
+
   useEffect(() =>{
     loadUserData()
   }, [])
   
     return (
-        <AuthContext.Provider value={{user, getDatas}}>
+        <AuthContext.Provider value={{user, getDatas, signOut}}>
             {children}
           </AuthContext.Provider>
     )
