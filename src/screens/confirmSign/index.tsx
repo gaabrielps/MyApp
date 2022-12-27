@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
-import { Container, Text } from './styles';
+import { Container, Text, Title } from './styles';
 
 import {useNavigation} from '@react-navigation/native'
 
@@ -52,7 +52,7 @@ export function ConfirmSign() {
   return (
     <Container>
       
-      <Text>Confirme Email</Text>
+      <Title>Confirme Email</Title>
 
         <Controller 
         control={control}
@@ -66,7 +66,14 @@ export function ConfirmSign() {
         )}
         />
       <Button 
-      title='Confirmar'
+      title='Confirmar e-mail'
+      onPress={handleSubmit(handleConfirmEmail)}
+      
+      />
+      <Text>Não recebeu o código?</Text>
+      <Button 
+      title='Reenviar código'
+      type='SECONDARY'
       onPress={handleSubmit(handleConfirmEmail)}
       />
 

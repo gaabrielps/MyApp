@@ -13,6 +13,8 @@ import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
 import { api } from '../../services/api';
 import axios from 'axios';
 import { useAuth } from '../../hooks/useAuth';
+import { StyleSheet, Text } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 
 
@@ -75,12 +77,24 @@ export function Login() {
         />
 
       <Button 
-      title='teste'
+      title='Entrar' 
       onPress={handleSubmit(handleLogin)}/>
-        <Button  title='Cadastrar' onPress={handleNewAccount}/>
+      <Text style={styles.baseText}>Não possui conta em aca.so?</Text>
+
+      <Button  title='Criar uma  conta' type='SECONDARY' onPress={handleNewAccount}/>
+
+
+
+
         <Button  title='confirmar email' onPress={handle}/>
 
 
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  baseText: {
+    fontSize: 12,
+  }
+});

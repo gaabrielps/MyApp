@@ -180,7 +180,7 @@ export function SignUp() {
       
       />
 
-      <Button title='voltar ao login' onPress={handleGoBack}/>
+      <Button title='Voltar ao login' type='SECONDARY' onPress={handleGoBack}/>
 
 
   
