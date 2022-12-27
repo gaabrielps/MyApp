@@ -75,7 +75,7 @@ export function Login() {
         />
 
       <Button 
-      title='Entrar'
+      title='teste'
       onPress={handleSubmit(handleLogin)}/>
         <Button  title='Cadastrar' onPress={handleNewAccount}/>
         <Button  title='confirmar email' onPress={handle}/>
