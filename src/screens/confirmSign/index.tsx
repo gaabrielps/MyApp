@@ -2,6 +2,8 @@ import React from 'react';
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { Container, Text } from './styles';
+import Acaso from './../../../assets/acaso.svg'
+
 
 import {useNavigation} from '@react-navigation/native'
 
@@ -13,6 +15,7 @@ import axios from 'axios'
 import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
 import { useAuth } from '../../hooks/useAuth';
 import { Title } from '../../components/Title';
+import { Header } from '../../components/header';
 
 type dataConfirmEmailProps = {
   email: string;
@@ -52,8 +55,11 @@ export function ConfirmSign() {
 
   return (
     <Container>
-      
+      <Header />
       <Title title='Confirmar e-mail'/>
+
+      
+      
 
         <Controller 
         control={control}

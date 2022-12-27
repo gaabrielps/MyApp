@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native'
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { Title } from '../../components/Title';
+import Acaso from './../../../assets/acaso.svg'
 import { Container } from './styles';
 
 
@@ -14,7 +15,8 @@ import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
 import { api } from '../../services/api';
 import axios from 'axios';
 import { useAuth } from '../../hooks/useAuth';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Header } from '../../components/header';
 
 
 
@@ -46,50 +48,45 @@ export function Login() {
 
   return (
     <Container>
+      <Header/>
         <Title title='Login'/>
-        
-        <Controller 
-        control={control}
-        name='email'
-        rules={{
-          required: 'informe o email'
-        }}
-        render={({field: {onChange, value}}) =>(
-          <Input 
-            placeholder='email' 
-            onChangeText={onChange}
-            value={value}  
+
+          <Controller 
+          control={control}
+          name='email'
+          rules={{
+            required: 'informe o email'
+          }}
+          render={({field: {onChange, value}}) =>(
+            <Input 
+              placeholder='email' 
+              onChangeText={onChange}
+              value={value}  
+            />
+          )}
           />
-        )}
-        />
-        <Controller 
-        control={control}
-        name='password'
-        rules={{
-          required: 'informe a senha'
-        }}
-        render={({field: {onChange, value}}) =>(
-          <Input 
-            placeholder='senha' 
-            onChangeText={onChange}
-            value={value}  
+          <Controller 
+          control={control}
+          name='password'
+          rules={{
+            required: 'informe a senha'
+          }}
+          render={({field: {onChange, value}}) =>(
+            <Input 
+              placeholder='senha' 
+              onChangeText={onChange}
+              value={value}  
+            />
+          )}
           />
-        )}
-        />
 
-      <Button 
-      title='Entrar' 
-      onPress={handleSubmit(handleLogin)}/>
-      <Text style={styles.baseText}>Não possui conta em aca.so?</Text>
+        <Button 
+        title='Entrar' 
+        onPress={handleSubmit(handleLogin)}/>
+        <Text style={styles.baseText}>Não possui conta em aca.so?</Text>
 
-      <Button  title='Criar uma  conta' type='SECONDARY' onPress={handleNewAccount}/>
-
-
-
-
+        <Button  title='Criar uma  conta' type='SECONDARY' onPress={handleNewAccount}/>
         <Button  title='confirmar email' onPress={handle}/>
-
-
     </Container>
   );
 }

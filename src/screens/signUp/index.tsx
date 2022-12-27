@@ -5,11 +5,13 @@ import {useForm, Controller} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
+
 import { Container } from './styles';
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { Title } from '../../components/Title';
+
 
 
 import {api} from '../../services/api'
@@ -91,103 +93,98 @@ export function SignUp() {
 
   return (
     <Container>
+
         <Title title='Cadastro'/>
-
-            
-
-
+ 
         <Controller 
-        control={control}
-        name='email'
-        rules={{
-          required: 'informe o email'
-        }}
-        render={({field: {onChange, value}}) =>(
-          <Input 
-            placeholder='Email' 
-            onChangeText={onChange}
-            value={value} 
-             
+          control={control}
+          name='email'
+          rules={{
+            required: 'informe o email'
+          }}
+          render={({field: {onChange, value}}) =>(
+            <Input 
+              placeholder='Email' 
+              onChangeText={onChange}
+              value={value} 
+              
+            />
+          )}
           />
-        )}
-        />
-        <Text style={styles.baseText}>{errors.email?.message}</Text>
+          <Text style={styles.baseText}>{errors.email?.message}</Text>
 
-  
-        <Controller 
-        control={control}
-        name='first_name'       
-        render={({field: {onChange, value}}) =>(
-          <Input 
-            placeholder='Nome' 
-            onChangeText={onChange}
-            value={value}
+    
+          <Controller 
+          control={control}
+          name='first_name'       
+          render={({field: {onChange, value}}) =>(
+            <Input 
+              placeholder='Nome' 
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
           />
-        )}
-        />
-        <Text style={styles.baseText}>{errors.first_name?.message}</Text>
+          <Text style={styles.baseText}>{errors.first_name?.message}</Text>
+          
+
+          <Controller 
+          control={control}
+          name='last_name'
+          render={({field: {onChange, value}}) =>(
+            <Input 
+              placeholder='Ultimo nome' 
+              onChangeText={onChange}
+              value={value} 
+              
+            />
+          )}
+          />
+          <Text style={styles.baseText}>{errors.last_name?.message}</Text>
+
+
+          <Controller 
+          control={control}
+          name='password'
+          render={({field: {onChange, value}}) =>(
+            <Input 
+              placeholder='Senha'
+              secureTextEntry 
+              onChangeText={onChange}
+              value={value}  
+            />
+          )}
+          />
+          <Text style={styles.baseText}>{errors.password?.message}</Text>
+
+
+          <Controller 
+          control={control}
+          name='passwordConfirm'
+          render={({field: {onChange, value}}) =>(
+            <Input 
+              placeholder='Confirme a senha' 
+              onChangeText={onChange}
+              secureTextEntry
+              value={value}  
+              onSubmitEditing={handleSubmit(handleSingUp)}
+              returnKeyType='send'
+            />
+          )}
+          />
+          <Text style={styles.baseText}>{errors.passwordConfirm?.message}</Text>
+
+
         
-
-        <Controller 
-        control={control}
-        name='last_name'
-        render={({field: {onChange, value}}) =>(
-          <Input 
-            placeholder='Ultimo nome' 
-            onChangeText={onChange}
-            value={value} 
-             
-          />
-        )}
+    
+        <Button 
+        title='Criar conta em aca.so'
+        onPress={handleSubmit(handleSingUp)}
+        
         />
-        <Text style={styles.baseText}>{errors.last_name?.message}</Text>
 
-
-        <Controller 
-        control={control}
-        name='password'
-        render={({field: {onChange, value}}) =>(
-          <Input 
-            placeholder='Senha'
-            secureTextEntry 
-            onChangeText={onChange}
-            value={value}  
-          />
-        )}
-        />
-        <Text style={styles.baseText}>{errors.password?.message}</Text>
-
-
-        <Controller 
-        control={control}
-        name='passwordConfirm'
-        render={({field: {onChange, value}}) =>(
-          <Input 
-            placeholder='Confirme a senha' 
-            onChangeText={onChange}
-            secureTextEntry
-            value={value}  
-            onSubmitEditing={handleSubmit(handleSingUp)}
-            returnKeyType='send'
-          />
-        )}
-        />
-        <Text style={styles.baseText}>{errors.passwordConfirm?.message}</Text>
-
-
-      
+        <Button title='Voltar ao login' type='SECONDARY' onPress={handleGoBack}/>
    
-      <Button 
-      title='Criar conta em aca.so'
-      onPress={handleSubmit(handleSingUp)}
-      
-      />
-
-      <Button title='Voltar ao login' type='SECONDARY' onPress={handleGoBack}/>
-
-
-  
-
 
     </Container>
   );
