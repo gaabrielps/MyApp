@@ -8,12 +8,6 @@ align-items: center;
 background-color: ${({theme}) => theme.COLORS.background};
 `;
 
-export const Title = styled.Text`
-
-font-size: 32px
-
-
-`;
 
 export const Text = styled.Text`
 

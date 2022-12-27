@@ -8,7 +8,7 @@ export const Container = styled(TextInput)`
 height: 50px;
 width:79%;
 
-background-color: #1C1C1C;
+background-color: #1E1F2F;
 color: #fff;
 
 border-radius: 8px;

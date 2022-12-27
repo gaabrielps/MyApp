@@ -11,10 +11,5 @@ background-color: ${({theme}) => theme.COLORS.background};
 
 `;
 
-export const Title = styled.Text`
 
-font-size: 32px
-
-
-`;
 

@@ -3,8 +3,9 @@ import {useNavigation} from '@react-navigation/native'
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
+import { Title } from '../../components/Title';
 import { Container } from './styles';
-import { Title } from '../signUp/styles';
+
 
 import {useForm, Controller} from 'react-hook-form'
 
@@ -14,7 +15,7 @@ import { api } from '../../services/api';
 import axios from 'axios';
 import { useAuth } from '../../hooks/useAuth';
 import { StyleSheet, Text } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+
 
 
 
@@ -45,7 +46,7 @@ export function Login() {
 
   return (
     <Container>
-        <Title>Login</Title>
+        <Title title='Login'/>
         
         <Controller 
         control={control}

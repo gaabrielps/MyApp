@@ -5,10 +5,12 @@ import {useForm, Controller} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import { Container, Title } from './styles';
+import { Container } from './styles';
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
+import { Title } from '../../components/Title';
+
 
 import {api} from '../../services/api'
 import axios from 'axios'
@@ -89,9 +91,10 @@ export function SignUp() {
 
   return (
     <Container>
+        <Title title='Cadastro'/>
+
             
 
-        <Title>Cadastro</Title>
 
         <Controller 
         control={control}
