@@ -1,10 +1,10 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import {useNavigation} from '@react-navigation/native'
+
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { Title } from '../../components/Title';
-import Acaso from './../../../assets/acaso.svg'
 import { Container } from './styles';
 
 
@@ -61,7 +61,7 @@ export function Login() {
             <Input 
               placeholder='email' 
               onChangeText={onChange}
-              value={value}  
+              value={value}
             />
           )}
           />
@@ -76,13 +76,15 @@ export function Login() {
               placeholder='senha' 
               onChangeText={onChange}
               value={value}  
+              
             />
           )}
           />
 
         <Button 
         title='Entrar' 
-        onPress={handleSubmit(handleLogin)}/>
+        onPress={handleSubmit(handleLogin)}
+        disabled={false}/>
         <Text style={styles.baseText}>Não possui conta em aca.so?</Text>
 
         <Button  title='Criar uma  conta' type='SECONDARY' onPress={handleNewAccount}/>

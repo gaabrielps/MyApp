@@ -9,6 +9,7 @@ type AuthContextDataProps = {
     user: UserDTO
     getDatas: (email: string, password: string) => Promise<void>
     signOut: () => Promise<void>
+
 }
 
 type AuthContextProviderProps = {
@@ -18,7 +19,12 @@ export const AuthContext = createContext<AuthContextDataProps>({}as AuthContextD
 
 export function AuthContextProvider({children}:AuthContextProviderProps) {
   //relacioando os dados com a tipagem DTO
+
+
+
+
   const[user, setUser] = useState<UserDTO>({} as UserDTO)
+                            
 
 
   async function UserAndTokenUpdate(userData: UserDTO, token: string){
@@ -45,8 +51,6 @@ export function AuthContextProvider({children}:AuthContextProviderProps) {
 
   }
 
-  
-
   async function getDatas(email: string, password: string){
     try {
       const {data} = await api.post('/auth/login', {email, password})
@@ -64,19 +68,11 @@ export function AuthContextProvider({children}:AuthContextProviderProps) {
 
         if(userLogged && token){
           UserAndTokenUpdate(userLogged, token)
-        }
-        
-
-
-  
+        } 
       }
-
-
     } catch(error) {
       throw error
     }
-
-
   }
 
   async function loadUserData() {

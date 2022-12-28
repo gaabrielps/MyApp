@@ -22,12 +22,11 @@ type dataConfirmEmailProps = {
   confirmation_code: string;
 }
 
+
 export function ConfirmSign() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
 
   const {user} = useAuth()
-
-
 
 
   const {control, handleSubmit, formState:{errors}} = useForm<dataConfirmEmailProps>()
@@ -35,6 +34,7 @@ export function ConfirmSign() {
 
   async function handleConfirmEmail({confirmation_code, email}:dataConfirmEmailProps) {
     email= user.email
+    console.log(email)
     try {
       const response = await api.post('/auth/confirm-sign-up', {email,confirmation_code})
       console.log(response.data)
@@ -49,8 +49,9 @@ export function ConfirmSign() {
   }
 
 
-  }
 
+
+  }
 
 
   return (
@@ -86,5 +87,5 @@ export function ConfirmSign() {
 
 
     </Container>
-  );
+  )
 }

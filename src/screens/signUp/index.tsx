@@ -5,30 +5,34 @@ import {useForm, Controller} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-
 import { Container } from './styles';
 
 import { Button } from '../../components/button';
 import { Input } from '../../components/input';
 import { Title } from '../../components/Title';
 
-
-
 import {api} from '../../services/api'
 import axios from 'axios'
 import { AuthNavigatorRoutesProps } from '../../routes/auth.routes';
-import { useAuth } from '../../hooks/useAuth';
 
 
-
-
-type formDataProps = {
+export type formDataProps  = {
   first_name: string;
   last_name: string;
   email: string;
   password: string;
   passwordConfirm: string;
+  confirmation_code: string;
+
 }
+
+
+
+
+
+
+
+
 
 
 const validationDataInputs = yup.object({
@@ -41,24 +45,28 @@ const validationDataInputs = yup.object({
   password: yup.string().required()
   .matches(
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-6])/,
-    "minimo de 6 caracteres sendo minusculas e maisuculas"
+    "minimo de 6 caracteres sendo um numero, minusculas e maisuculas"
   ),
 
   passwordConfirm: yup.string().required('confirme a senha').oneOf([yup.ref('password')], 
   'a confirmação de senha nao confere')
 })
 
-
 export function SignUp() {
-  const {getDatas} = useAuth()
+  
   const[email, setEmail] = useState('')
+  
+
   console.log('teste', email)
+
+   
+
 
   const navigation = useNavigation<AuthNavigatorRoutesProps>()
 
   
 
-  const {control, handleSubmit, formState:{errors}} = useForm<formDataProps>({
+   const {control, handleSubmit, formState:{errors}} = useForm<formDataProps>({
     resolver: yupResolver(validationDataInputs)
   })
 
@@ -68,19 +76,19 @@ export function SignUp() {
 
 
   async function handleSingUp({email, first_name, last_name, password}: formDataProps) {
-
+    
     try {
       const response = await api.post('/auth/sign-up', {email, first_name, last_name, password})
-      console.log(response.data)
-      console.log('passou')
-      setEmail(email) 
       
+      setEmail(email)
 
-      navigation.navigate('confirmsign')
       
+     
 
       
       
+      navigation.navigate('confirmsign') 
+  
 
     } catch(error) {
       if(axios.isAxiosError(error)) {

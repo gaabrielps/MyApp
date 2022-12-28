@@ -22,6 +22,8 @@ margin:20px;
 margin-top: 3px;
 
 
+
+
 `;
 
 export const Title = styled.Text<Props>`
@@ -29,5 +31,7 @@ font-size: 16px;
 color:  ${({theme, type}) => type === 'PRIMARY' ? theme.COLORS.button_blue :  theme.COLORS.WHITE};
 
 font-family: ${({theme}) => theme.FONT_FAMILY.REGULAR};
+
+
 
 `;
