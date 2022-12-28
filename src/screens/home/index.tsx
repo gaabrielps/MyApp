@@ -7,6 +7,7 @@ export function Home() {
   const {signOut} = useAuth()
   return (
     <Container>
+      
         <Title>Home</Title>
         <Button title='sair de aca.so' onPress={signOut}  />
     </Container>
